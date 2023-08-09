@@ -8,6 +8,6 @@
 
   <https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeRZV6kBUDFAVH>
 
-3. SWEA 9299. 한빈이와 Spot Mart : 조합
+3. SWEA 9229. 한빈이와 Spot Mart : 조합
 
   <https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW8Wj7cqbY0DFAXN>>
