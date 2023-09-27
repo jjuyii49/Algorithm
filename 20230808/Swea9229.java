@@ -41,7 +41,25 @@ public class hwalgo06_SWEA9229 {
 		System.out.println(sb);	// sb 출력
 	}
 	
-	static void comb(int idx, int count) {	// 조합 메소드 생성 (재귀)
+	// static void comb(int idx, int count) {	// 조합 메소드 생성 (재귀)
+	// 	if(count == 2) {	// 과자는 2개밖에 고르지 못하므로 기저 조건으로 설정
+	// 		if(sum > max) {	// 고른 과자 봉지의 무게 합이 max 보다 크고
+	// 			if(sum <= M) max = sum;	// 무게 제한보다 작으면 max값을 sum으로 변경
+	// 		}
+	// 		return;	// 메소드 종료
+	// 	}
+		
+	// 	// to do
+	// 	for(int i = idx; i < N; i++) {	// 이미 고른 값은 다시 고를 수 없으므로 idx부터 N까지 반복
+	// 		sum += weight[i];	// sum에 무게 더함
+	// 		comb(i + 1, count + 1);	// 다음 재귀 실행
+	// 		sum -= weight[i];	// 다음 반복문을 위해 이전에 더한 값 빼기(복구)
+	// 	}
+	// }
+
+	// sum도 재귀 실행 시마다 계속 변경되는 값이므로 전역 변수로 선언 시 다음 재귀에 영향을 끼칠 수 있다.
+	// 그래서 매개변수로 작성하는 게 좋다.
+	static void comb(int idx, int count, int sum) {	// 조합 메소드 생성 (재귀)
 		if(count == 2) {	// 과자는 2개밖에 고르지 못하므로 기저 조건으로 설정
 			if(sum > max) {	// 고른 과자 봉지의 무게 합이 max 보다 크고
 				if(sum <= M) max = sum;	// 무게 제한보다 작으면 max값을 sum으로 변경
@@ -51,9 +69,9 @@ public class hwalgo06_SWEA9229 {
 		
 		// to do
 		for(int i = idx; i < N; i++) {	// 이미 고른 값은 다시 고를 수 없으므로 idx부터 N까지 반복
-			sum += weight[i];	// sum에 무게 더함
-			comb(i + 1, count + 1);	// 다음 재귀 실행
-			sum -= weight[i];	// 다음 반복문을 위해 이전에 더한 값 빼기(복구)
+			// sum += weight[i];	// sum에 무게 더함
+			comb(i + 1, count + 1, sum + weight[i]);	// 다음 재귀 실행
+			// sum -= weight[i];	// 다음 반복문을 위해 이전에 더한 값 빼기(복구)
 		}
 	}
 }
