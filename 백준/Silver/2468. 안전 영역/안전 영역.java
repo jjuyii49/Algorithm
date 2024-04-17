@@ -36,7 +36,7 @@ public class Main {
     private static void flooding(int[][] map, int maxHeight) {
         int height = -1;
 
-        while(height++ <= maxHeight) {
+        while(height++ < maxHeight) {
             for(int i = 0; i < N; i++) {
                 for(int j = 0; j < N; j++) {
                     if(map[i][j] == 0) continue;
