@@ -5,30 +5,26 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int a = Integer.parseInt(st.nextToken());
-		int b = Integer.parseInt(st.nextToken());
-		
-        int r, aa = 0, bb = 0;
-        
-        if(a % b == 0) r = b;
-        else {
-            r = a % b;
-		    aa = b;
-		    bb = r;
-		
-		    while(true) {
-			    if(aa % bb == 0) break;
-			    r = aa % bb;
-			    aa = bb;
-			    bb = r;      
-		    }
-        }
-		
-		System.out.println(r);
-		System.out.println(a * b / r);
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine().trim());
 
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+
+        int gcd = gcd(a, b);
+
+        System.out.println(gcd);
+        System.out.println(a * b / gcd);
+    }
+
+    private static int gcd(int a, int b) {
+        while(b != 0) {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+
+        return a;
+    }
 }
