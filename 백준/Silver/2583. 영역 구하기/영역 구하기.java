@@ -48,7 +48,11 @@ public class Main {
         }
 
         System.out.println(count);
-        result.stream().sorted().forEach(p -> System.out.print(p + " "));
+
+        Collections.sort(result);
+        for(int i = 0; i < result.size(); i++) {
+            System.out.print(result.get(i) + " ");
+        }
     }
 
     static void bfs(int r, int c) {
