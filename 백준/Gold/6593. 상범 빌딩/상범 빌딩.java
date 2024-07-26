@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static int L, R, C, end[];
+    static int L, R, C;
     static char[][][] map;
     static int[][][] visited;
     static int[] dl = {0, 0, 0, 0, -1, 1};
@@ -29,7 +29,6 @@ public class Main {
             map = new char[L][R][C];
             visited = new int[L][R][C];
             int[] start = new int[3];
-            end = new int[3];
 
             for(int l = 0; l < L; l++) {
                 for(int r = 0; r < R; r++) {
@@ -41,10 +40,6 @@ public class Main {
                             start[0] = l;
                             start[1] = r;
                             start[2] = c;
-                        } else if(map[l][r][c] == 'E') {
-                            end[0] = l;
-                            end[1] = r;
-                            end[2] = c;
                         }
                     }
                 }
@@ -54,7 +49,7 @@ public class Main {
             int time = bfs(start[0], start[1], start[2]);
 
             if(time > 0) {
-                sb.append("Escaped in ").append(time - 1).append(" minute(s).").append("\n");
+                sb.append("Escaped in ").append(time).append(" minute(s).").append("\n");
             }
             else {
                 sb.append("Trapped!").append("\n");
@@ -72,8 +67,8 @@ public class Main {
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
 
-            if(current[0] == end[0] && current[1] == end[1] && current[2] == end[2]) {
-                return visited[current[0]][current[1]][current[2]];
+            if(map[current[0]][current[1]][current[2]] == 'E') {
+                return visited[current[0]][current[1]][current[2]] - 1;
             }
 
             for(int i = 0; i < 6; i++) {
