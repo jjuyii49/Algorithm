@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 public class Main {
 
     static int N, M, map[][];
-    static boolean[][] visited, countVisited;
+    static boolean[][] visited;
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
 
@@ -29,7 +29,6 @@ public class Main {
         }
 
         int time = 0;
-        boolean isSuccess = false;
         while(true) {
             time++;
             visited = new boolean[N][M];
@@ -44,13 +43,14 @@ public class Main {
             }
 
             if(count >= 2) {
-                isSuccess = true;
-                break;
+                System.out.println(time);
+                return;
             }
-            else if(count == 0) break;
+            else if(count == 0) {
+                System.out.println(0);
+                return;
+            }
         }
-
-        System.out.println(isSuccess? time : 0);
     }
 
     static int melt(int r, int c) {
@@ -81,11 +81,11 @@ public class Main {
             newMap[current[0]][current[1]] = Math.max(newIce, 0);
         }
 
-        countVisited = new boolean[N][M];
+        visited = new boolean[N][M];
         int count = 0;
         for (int i = 1; i < N - 1; i++) {
             for (int j = 1; j < M - 1; j++) {
-                if (newMap[i][j] != 0 && !countVisited[i][j]) {
+                if (newMap[i][j] != 0 && !visited[i][j]) {
                     bfs(i, j, newMap);
                     count++;
                 }
@@ -102,7 +102,7 @@ public class Main {
     static void bfs(int r, int c, int[][] meltMap) {
         Queue<int[]> queue = new ArrayDeque<>();
         queue.offer(new int[] {r, c});
-        countVisited[r][c] = true;
+        visited[r][c] = true;
 
         while(!queue.isEmpty()) {
             int[] current = queue.poll();
@@ -112,10 +112,10 @@ public class Main {
                 int nc = current[1] + dc[i];
 
                 if(nr < 0 || nc < 0 || nr >= N || nc >= M) continue;
-                if(meltMap[nr][nc] == 0 || countVisited[nr][nc]) continue;
+                if(meltMap[nr][nc] == 0 || visited[nr][nc]) continue;
 
                 queue.offer(new int[] {nr, nc});
-                countVisited[nr][nc] = true;
+                visited[nr][nc] = true;
             }
         }
     }
