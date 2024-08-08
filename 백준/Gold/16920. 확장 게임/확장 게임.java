@@ -84,12 +84,6 @@ public class Main {
                     int r = current[0];
                     int c = current[1];
                     int n = current[2];
-                    int temp = map[r][c] - '0';
-
-                    if (n == 0) {
-                        queue.offer(new int[] {r, c, num[temp]});
-                        continue;
-                    }
 
                     for (int i = 0; i < 4; i++) {
                         int nr = r + dr[i];
@@ -98,7 +92,13 @@ public class Main {
                         if (nr < 0 || nc < 0 || nr >= N || nc >= M) continue;
                         if(map[nr][nc] != '.') continue;
 
-                        queues[p].offer(new int[]{nr, nc, n - 1});
+                        if(n - 1 == 0) {
+                            queue.offer(new int[] {nr, nc, num[p]});
+                        }
+                        else {
+                            queues[p].offer(new int[]{nr, nc, n - 1});
+                        }
+                        
                         map[nr][nc] = map[r][c];
                         expanded = true;
                     }
