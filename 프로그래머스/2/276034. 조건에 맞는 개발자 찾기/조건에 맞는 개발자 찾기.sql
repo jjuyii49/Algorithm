@@ -1,5 +1,4 @@
-select distinct ID, EMAIL, FIRST_NAME, LAST_NAME
+select ID, EMAIL, FIRST_NAME, LAST_NAME
 from DEVELOPERS
-where BIN(SKILL_CODE) & (select CODE from SKILLCODES where NAME ="Python") != 0 or
-        BIN(SKILL_CODE) & (select CODE from SKILLCODES where NAME ="C#") != 0
-order by ID
+where SKILL_CODE & (select sum(CODE) from SKILLCODES where NAME in ("Python", "C#"))
+order by ID asc
