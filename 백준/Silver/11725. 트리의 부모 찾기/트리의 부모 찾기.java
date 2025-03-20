@@ -5,16 +5,18 @@ import java.util.*;
 
 public class Main {
 
-    static Map<Integer, List<Integer>> map;
+    static List<Integer>[] graph;
     static int[] parents;
-    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine().trim());
 
-        map = new HashMap<>();
+        graph = new ArrayList[N + 1];
+        for(int i = 1; i < N + 1; i++) {
+            graph[i] = new ArrayList<>();
+        }
 
         StringTokenizer st;
         for(int i = 0; i < N - 1; i++) {
@@ -23,39 +25,27 @@ public class Main {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
-            List<Integer> list = map.getOrDefault(a, new ArrayList<>());
-            list.add(b);
-            map.put(a, list);
-
-            list = map.getOrDefault(b, new ArrayList<>());
-            list.add(a);
-            map.put(b, list);
+            graph[a].add(b);
+            graph[b].add(a);
         }
 
         parents = new int[N + 1];
-        visited = new boolean[N + 1];
 
-        for(int i = 1; i <= N; i++) {
-            if(visited[i]) continue;
+        dfs(1, 0);
 
-            visited[i] = true;
-            tree(i);
-        }
-
+        StringBuilder sb = new StringBuilder();
         for(int i = 2; i <= N; i++) {
-            System.out.println(parents[i]);
+            sb.append(parents[i]).append("\n");
         }
+
+        System.out.println(sb);
     }
 
-    static void tree(int index) {
-        List<Integer> list = map.get(index);
+    static void dfs(int index, int parent) {
+        parents[index] = parent;
 
-        for(Integer num : list) {
-            if(visited[num]) parents[index] = num;
-            else {
-                visited[num] = true;
-                tree(num);
-            }
+        for(int child : graph[index]) {
+            if(child != parent) dfs(child, index);
         }
     }
 }
